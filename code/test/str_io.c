@@ -9,6 +9,7 @@
 char a[256];
 int main() {
     PrintString("String length: (<= 255):\n");
+    MyPrint("Abhinav\n");
     ReadString(a, ReadNum());
     PrintString(a);
 }

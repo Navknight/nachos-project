@@ -8,7 +8,7 @@
 
 int main() {
     int pid;
-    pid = Exec("num_io");
+    pid = Exec("str_io");
     if (pid < 0) {
         Write("Exec failed: ", 14, stdout);
         PrintNum(pid);

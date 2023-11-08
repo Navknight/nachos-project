@@ -210,6 +210,14 @@ PrintChar:
 	j	$31
 	.end PrintChar
 
+	.globl MyPrint
+	.ent	MyPrint
+MyPrint:
+	addiu $2,$0,SC_MyPrint
+	syscall
+	j	$31
+	.end MyPrint
+
 	.globl RandomNum
 	.ent	RandomNum
 RandomNum:

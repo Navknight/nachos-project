@@ -34,6 +34,12 @@ Scheduler::Scheduler() {
     toBeDestroyed = NULL;
 }
 
+Scheduler::Scheduler(bool priorityEnabled) {
+    readyListPriority = priority_queue<pair<int, Thread *>, vector<pair<int, Thread *>>, comparePriority>();
+    toBeDestroyed = NULL;
+    priority = true;
+}
+
 //----------------------------------------------------------------------
 // Scheduler::~Scheduler
 // 	De-allocate the list of ready threads.
@@ -52,9 +58,14 @@ Scheduler::~Scheduler() { delete readyList; }
 void Scheduler::ReadyToRun(Thread *thread) {
     ASSERT(kernel->interrupt->getLevel() == IntOff);
     DEBUG(dbgThread, "Putting thread on ready list: " << thread->getName());
-
     thread->setStatus(READY);
-    readyList->Append(thread);
+
+    if (!priority)
+        readyList->Append(thread);
+    else {
+        int p = rand() % 100 + 1;
+        readyListPriority.push(make_pair(p, thread));
+    }
 }
 
 //----------------------------------------------------------------------
@@ -68,10 +79,20 @@ void Scheduler::ReadyToRun(Thread *thread) {
 Thread *Scheduler::FindNextToRun() {
     ASSERT(kernel->interrupt->getLevel() == IntOff);
 
-    if (readyList->IsEmpty()) {
-        return NULL;
+    if (!priority) {
+        if (readyList->IsEmpty()) {
+            return NULL;
+        } else {
+            return readyList->RemoveFront();
+        }
     } else {
-        return readyList->RemoveFront();
+        if (readyListPriority.empty())
+            return NULL;
+        else {
+            Thread *t = readyListPriority.top().second;
+            readyListPriority.pop();
+            return t;
+        }
     }
 }
 
@@ -162,5 +183,17 @@ void Scheduler::CheckToBeDestroyed() {
 //----------------------------------------------------------------------
 void Scheduler::Print() {
     cout << "Ready list contents:\n";
-    readyList->Apply(ThreadPrint);
+    if (!priority)
+        readyList->Apply(ThreadPrint);
+    else {
+        priority_queue<pair<int, Thread *>, vector<pair<int, Thread *>>,
+                       comparePriority>
+            temp = readyListPriority;
+
+        while (!temp.empty()) {
+            cout << temp.top().first << " " << temp.top().second->getName()
+                 << endl;
+            temp.pop();
+        }
+    }
 }

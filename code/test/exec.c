@@ -8,6 +8,7 @@
 
 int main() {
     int pid;
+    MyPrint("This is My Print function!\n");
     pid = Exec("str_io");
     if (pid < 0) {
         Write("Exec failed: ", 14, stdout);

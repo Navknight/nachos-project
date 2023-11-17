@@ -41,10 +41,28 @@ Alarm::Alarm(bool doRandom) { timer = new Timer(doRandom, this); }
 //----------------------------------------------------------------------
 
 void Alarm::CallBack() {
-    Interrupt *interrupt = kernel->interrupt;
+    Interrupt* interrupt = kernel->interrupt;
     MachineStatus status = interrupt->getStatus();
 
     if (status != IdleMode) {
         interrupt->YieldOnReturn();
     }
+    wakeSleeping();
+}
+
+void Alarm::putToSleep(Thread* thread, int time) {
+    sleepingThreads.push(make_pair(time, thread));
+}
+
+void Alarm::wakeSleeping() {
+    // IntStatus oldLevel = kernel->interrupt->SetLevel(IntOff);
+    if (kernel->mysleep == true) {
+    }
+    while (!sleepingThreads.empty() &&
+           sleepingThreads.top().first <= kernel->stats->totalTicks) {
+        Thread* thread = sleepingThreads.top().second;
+        sleepingThreads.pop();
+        kernel->scheduler->ReadyToRun(thread);
+    }
+    //(void)kernel->interrupt->SetLevel(oldLevel);
 }

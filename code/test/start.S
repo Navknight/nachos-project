@@ -218,6 +218,14 @@ MyPrint:
 	j	$31
 	.end MyPrint
 
+	.globl MySleep
+	.ent	MySleep
+MySleep:
+	addiu $2,$0,SC_MySleep
+	syscall
+	j	$31
+	.end MySleep
+
 	.globl RandomNum
 	.ent	RandomNum
 RandomNum:

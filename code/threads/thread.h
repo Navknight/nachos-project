@@ -102,6 +102,7 @@ class Thread {
                                  // other thread is runnable
     void Sleep(bool finishing);  // Put the thread to sleep and
                                  // relinquish the processor
+    void Sleep(int time);
     void Begin();                // Startup code for the thread
     void Finish();               // The thread is done executing
 

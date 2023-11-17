@@ -7,12 +7,9 @@
 #define stdout 1
 
 int main() {
-    int pid;
-    MyPrint("This is My Print function!\n");
-    pid = Exec("str_io");
-    if (pid < 0) {
-        Write("Exec failed: ", 14, stdout);
-        PrintNum(pid);
-    } else
-        Join(pid);
+    int pid1;
+    PrintString("In Exec Start\n");
+    MySleep(100000000);
+
+    PrintString("In Exec End\n");
 }

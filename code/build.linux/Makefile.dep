@@ -1848,8 +1848,8 @@ disk.o: ../machine/disk.cc /usr/include/stdc-predef.h ../lib/copyright.h \
  ../threads/pcb.h
 alarm.o: ../threads/alarm.cc /usr/include/stdc-predef.h \
  ../lib/copyright.h ../threads/alarm.h ../lib/utility.h \
- ../machine/callback.h ../machine/timer.h ../threads/main.h \
- ../lib/debug.h ../lib/sysdep.h /usr/include/c++/13/iostream \
+ ../machine/callback.h ../machine/timer.h ../threads/thread.h \
+ ../lib/sysdep.h /usr/include/c++/13/iostream \
  /usr/include/c++/13/bits/requires_hosted.h \
  /usr/include/c++/13/x86_64-redhat-linux/bits/c++config.h \
  /usr/include/bits/wordsize.h \
@@ -1977,19 +1977,19 @@ alarm.o: ../threads/alarm.cc /usr/include/stdc-predef.h \
  /usr/include/c++/13/bits/basic_ios.tcc \
  /usr/include/c++/13/bits/ostream.tcc /usr/include/c++/13/istream \
  /usr/include/c++/13/bits/istream.tcc /usr/include/c++/13/stdlib.h \
- /usr/include/string.h /usr/include/strings.h ../threads/kernel.h \
- ../threads/thread.h ../machine/machine.h ../machine/translate.h \
- ../userprog/addrspace.h ../filesys/filesys.h ../filesys/openfile.h \
- ../filesys/filetable.h ../threads/scheduler.h ../lib/list.h \
- ../lib/list.cc /usr/include/c++/13/queue /usr/include/c++/13/deque \
- /usr/include/c++/13/bits/stl_uninitialized.h \
+ /usr/include/string.h /usr/include/strings.h ../machine/machine.h \
+ ../machine/translate.h ../userprog/addrspace.h ../filesys/filesys.h \
+ ../filesys/openfile.h ../filesys/filetable.h /usr/include/c++/13/queue \
+ /usr/include/c++/13/deque /usr/include/c++/13/bits/stl_uninitialized.h \
  /usr/include/c++/13/bits/stl_deque.h /usr/include/c++/13/bits/deque.tcc \
  /usr/include/c++/13/vector /usr/include/c++/13/bits/stl_vector.h \
  /usr/include/c++/13/bits/stl_bvector.h \
  /usr/include/c++/13/bits/vector.tcc /usr/include/c++/13/bits/stl_heap.h \
- /usr/include/c++/13/bits/stl_queue.h ../machine/interrupt.h \
- ../machine/stats.h ../lib/bitmap.h ../threads/stable.h ../threads/sem.h \
- ../threads/ptable.h ../threads/pcb.h
+ /usr/include/c++/13/bits/stl_queue.h ../threads/main.h ../lib/debug.h \
+ ../threads/kernel.h ../threads/scheduler.h ../lib/list.h ../lib/list.cc \
+ ../machine/interrupt.h ../machine/stats.h ../lib/bitmap.h \
+ ../threads/stable.h ../threads/sem.h ../threads/ptable.h \
+ ../threads/pcb.h
 kernel.o: ../threads/kernel.cc /usr/include/stdc-predef.h \
  ../lib/copyright.h ../lib/debug.h ../lib/utility.h ../lib/sysdep.h \
  /usr/include/c++/13/iostream /usr/include/c++/13/bits/requires_hosted.h \

@@ -68,6 +68,7 @@ class Kernel {
     PTable *pTab;
 
     int hostName;  // machine identifier
+    bool mysleep = false;
 
    private:
     bool randomSlice;    // enable pseudo-random time slicing

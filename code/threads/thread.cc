@@ -244,6 +244,27 @@ void Thread::Sleep(bool finishing) {
     kernel->scheduler->Run(nextThread, finishing);
 }
 
+void Thread::Sleep(int time) {
+    Thread *nextThread;
+    IntStatus oldLevel = kernel->interrupt->SetLevel(IntOff);
+    // ASSERT(kernel->interrupt->getLevel() == IntOff);
+    ASSERT(this == kernel->currentThread);
+    DEBUG(dbgThread, "Sleeping thread: " << name);
+
+    status = BLOCKED;
+    int currentTime = kernel->stats->userTicks;
+    int wakeTime = currentTime + time;
+    kernel->alarm->putToSleep(this, wakeTime);
+
+    while ((nextThread = kernel->scheduler->FindNextToRun()) == NULL)
+        kernel->interrupt->Idle();  // no one to run, wait for an interrupt
+
+    // returns when it's time for us to run
+    kernel->scheduler->Run(nextThread, false);
+
+    (void)kernel->interrupt->SetLevel(oldLevel);
+}
+
 //----------------------------------------------------------------------
 // ThreadBegin, ThreadFinish,  ThreadPrint
 //	Dummy functions because C++ does not (easily) allow pointers to member

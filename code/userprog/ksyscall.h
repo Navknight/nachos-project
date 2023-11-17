@@ -134,6 +134,10 @@ void SysPrintString(char* buffer, int length) {
     }
 }
 
+void SysMySleep(int time){
+    kernel->currentThread->Sleep(time);
+}
+
 bool SysCreateFile(char* fileName) {
     bool success;
     int fileNameLength = strlen(fileName);
